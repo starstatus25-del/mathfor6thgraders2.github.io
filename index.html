@@ -30,6 +30,7 @@
       min-height: 100vh;
       text-align: center;
       color: white;
+      width: 100%;
     }
 
     .pin-screen.hidden {
@@ -37,76 +38,87 @@
     }
 
     .kahoot-logo {
-      font-size: 5em;
-      margin-bottom: 30px;
+      font-size: 6em;
+      margin-bottom: 40px;
       animation: bounce 2s infinite;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
     }
 
     @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.1); }
     }
 
     .pin-screen h1 {
-      font-size: 4em;
-      margin-bottom: 20px;
-      font-weight: bold;
-      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+      font-size: 4.5em;
+      margin-bottom: 15px;
+      font-weight: 900;
+      text-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+      letter-spacing: 2px;
     }
 
     .pin-screen p {
       font-size: 1.8em;
-      margin-bottom: 40px;
-      opacity: 0.9;
+      margin-bottom: 50px;
+      opacity: 0.95;
+      font-weight: 500;
     }
 
     .pin-input-container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 40px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.15);
+      padding: 50px;
+      border-radius: 25px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
     }
 
     .pin-input {
-      font-size: 3em;
+      font-size: 3.5em;
       text-align: center;
-      letter-spacing: 15px;
-      border: 3px solid white;
-      background: rgba(255, 255, 255, 0.2);
+      letter-spacing: 20px;
+      border: 4px solid white;
+      background: rgba(255, 255, 255, 0.25);
       color: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      margin-bottom: 20px;
+      padding: 25px;
+      border-radius: 15px;
+      width: 320px;
+      margin-bottom: 30px;
       font-weight: bold;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
     }
 
     .pin-input::placeholder {
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.6);
     }
 
     .pin-input:focus {
       outline: none;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.35);
+      transform: scale(1.05);
     }
 
     .pin-submit-btn {
       background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
       color: white;
       border: none;
-      padding: 15px 40px;
-      font-size: 1.3em;
-      border-radius: 10px;
+      padding: 18px 50px;
+      font-size: 1.6em;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-weight: 900;
+      transition: all 0.3s ease;
       margin-top: 20px;
+      box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .pin-submit-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+      transform: scale(1.08);
+      box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
     }
 
     .pin-submit-btn:active {
@@ -114,139 +126,260 @@
     }
 
     .error-message {
-      color: #ff6b6b;
-      font-size: 1.2em;
-      margin-top: 15px;
+      color: #ff9999;
+      font-size: 1.3em;
+      margin-top: 20px;
       opacity: 0;
       transition: opacity 0.3s;
+      font-weight: bold;
     }
 
     .error-message.show {
       opacity: 1;
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
     }
 
     /* Game Screen */
     .games-screen {
       display: none;
       width: 100%;
+      animation: fadeIn 0.5s ease-in;
     }
 
     .games-screen.show {
       display: block;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 0 20px;
+    }
+
+    .exit-btn {
+      background: rgba(255, 107, 107, 0.9);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+    }
+
+    .exit-btn:hover {
+      background: rgba(255, 107, 107, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+    }
+
     header {
       text-align: center;
       color: white;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       padding: 20px;
     }
 
     header h1 {
-      font-size: 3em;
+      font-size: 3.2em;
       margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+      font-weight: 900;
     }
 
     header p {
-      font-size: 1.3em;
-      opacity: 0.9;
+      font-size: 1.4em;
+      opacity: 0.95;
+      font-weight: 500;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      padding: 20px;
     }
 
     .game-card {
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
       overflow: hidden;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
       position: relative;
     }
 
     .game-card:hover {
-      transform: translateY(-10px);
+      transform: translateY(-12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
     }
 
-    .game-card h2 {
+    .game-card-header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       padding: 20px;
-      font-size: 1.8em;
-      text-align: center;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      min-height: 80px;
     }
 
-    .game-card p {
-      padding: 15px 20px;
-      color: #333;
-      font-size: 1.1em;
-      text-align: center;
+    .game-card-header h2 {
+      font-size: 1.6em;
+      flex: 1;
+    }
+
+    .game-info {
+      padding: 20px;
+      color: #666;
       background: #f8f9fa;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .game-info p {
+      font-size: 1.05em;
+      margin-bottom: 10px;
+    }
+
+    .game-frame-container {
+      flex: 1;
+      position: relative;
+      min-height: 400px;
+      overflow: hidden;
     }
 
     .game-frame {
       width: 100%;
-      height: 600px;
+      height: 100%;
       border: none;
+      display: block;
+    }
+
+    .game-buttons {
+      display: flex;
+      gap: 12px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-top: 2px solid #e0e0e0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .fullscreen-btn, .play-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .fullscreen-btn {
-      background: white;
-      border: none;
-      color: #667eea;
-      font-size: 1.5em;
-      cursor: pointer;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 12px 18px;
     }
 
-    .fullscreen-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    .fullscreen-btn:hover, .play-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
     }
 
-    .fullscreen-btn:active {
-      transform: scale(0.95);
-    }
-
-    .game-controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
+    .fullscreen-btn:active, .play-btn:active {
+      transform: translateY(0);
     }
 
     footer {
       text-align: center;
       color: white;
-      margin-top: 50px;
+      margin-top: 40px;
       padding: 20px;
-      opacity: 0.8;
+      opacity: 0.85;
+      font-size: 1.1em;
+      font-weight: 500;
     }
 
-    .exit-btn {
-      background: rgba(255, 107, 107, 0.8);
+    /* Fullscreen styles */
+    .game-frame-container.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      border-radius: 0;
+    }
+
+    .exit-fullscreen-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 107, 107, 0.95);
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 1em;
-      border-radius: 5px;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      border-radius: 8px;
       cursor: pointer;
-      margin-bottom: 30px;
-      transition: background 0.2s;
+      font-weight: bold;
+      z-index: 10001;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s;
     }
 
-    .exit-btn:hover {
+    .exit-fullscreen-btn:hover {
       background: rgba(255, 107, 107, 1);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2em;
+      }
+
+      .container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .pin-screen h1 {
+        font-size: 3em;
+      }
+
+      .kahoot-logo {
+        font-size: 4em;
+      }
+
+      .game-buttons {
+        flex-direction: column;
+      }
+
+      .fullscreen-btn, .play-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -255,62 +388,86 @@
   <div class="pin-screen" id="pinScreen">
     <div class="kahoot-logo">🎮</div>
     <h1>Math Games</h1>
-    <p>Enter PIN to continue</p>
+    <p>Enter PIN to play</p>
     <div class="pin-input-container">
-      <input type="password" id="pinInput" class="pin-input" placeholder="0000" maxlength="4" inputmode="numeric">
-      <button class="pin-submit-btn" onclick="checkPin()">Play</button>
-      <div class="error-message" id="errorMessage">Wrong PIN. Try again!</div>
+      <input type="password" id="pinInput" class="pin-input" placeholder="0000" maxlength="4" inputmode="numeric" autocomplete="off">
+      <button class="pin-submit-btn" onclick="checkPin()">Play Now</button>
+      <div class="error-message" id="errorMessage">❌ Wrong PIN. Try again!</div>
     </div>
   </div>
 
   <!-- Games Screen -->
   <div class="games-screen" id="gamesScreen">
-    <button class="exit-btn" onclick="exitGames()">← Exit</button>
+    <div class="header-top">
+      <button class="exit-btn" onclick="exitGames()">← Exit Games</button>
+      <div></div>
+    </div>
     
     <header>
-      <h1>🎮 Math Games for 6th Graders 🎮</h1>
-      <p>Learn math while having fun!</p>
+      <h1>🎮 Math Games Hub 🎮</h1>
+      <p>Pick a game and level up your math skills!</p>
     </header>
 
     <div class="container">
-      <!-- Game 1: CrazyCattle3D -->
+      <!-- Game 1: Crazy Cattle 3D -->
       <div class="game-card">
-        <h2>
-          <span>Crazy Cattle 3D</span>
-          <div class="game-controls">
-            <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard1', 'canvas')" title="Fullscreen">⛶</button>
-          </div>
-        </h2>
-        <p>A wild 3D adventure game!</p>
-        <div id="gameCard1">
-          <canvas id="canvas" class="game-frame" style="display: block; width: 100%; height: 600px;">
-            Your browser does not support the canvas tag.
+        <div class="game-card-header">
+          <h2>🐄 Crazy Cattle 3D</h2>
+        </div>
+        <div class="game-info">
+          <p>Wild 3D adventure - dodge, jump, and conquer!</p>
+        </div>
+        <div class="game-frame-container" id="gameCard1">
+          <canvas id="canvas" class="game-frame" style="display: block; width: 100%; height: 100%; background: #000;">
+            Your browser does not support canvas.
           </canvas>
-          <noscript>Your browser does not support JavaScript.</noscript>
+        </div>
+        <div class="game-buttons">
+          <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard1')" title="Fullscreen">⛶ Fullscreen</button>
+          <button class="play-btn" onclick="resetGame('canvas')" title="Reset">🔄 Restart</button>
         </div>
       </div>
 
-      <!-- Game 2: Web Dashers (Division) -->
+      <!-- Game 2: Fun Division -->
       <div class="game-card">
-        <h2>
-          <span>🔢 Fun Division 🔢</span>
-          <div class="game-controls">
-            <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard2', 'gameFrame2')" title="Fullscreen">⛶</button>
-          </div>
-        </h2>
-        <p>Master division while playing an exciting dash game!</p>
-        <div id="gameCard2">
-          <iframe id="gameFrame2" src="https://rawcdn.githack.com/web-dashers/web-dashers.github.io/refs/heads/main/index.html" class="game-frame" allowfullscreen></iframe>
+        <div class="game-card-header">
+          <h2>🔢 Division Dash</h2>
+        </div>
+        <div class="game-info">
+          <p>Master division while racing through challenges!</p>
+        </div>
+        <div class="game-frame-container" id="gameCard2">
+          <iframe id="gameFrame2" src="https://rawcdn.githack.com/web-dashers/web-dashers.github.io/refs/heads/main/index.html" class="game-frame" allowfullscreen allow="fullscreen"></iframe>
+        </div>
+        <div class="game-buttons">
+          <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard2')" title="Fullscreen">⛶ Fullscreen</button>
+          <button class="play-btn" onclick="reloadGame('gameFrame2')" title="Refresh">🔄 Restart</button>
+        </div>
+      </div>
+
+      <!-- Game 3: Basket Bros -->
+      <div class="game-card">
+        <div class="game-card-header">
+          <h2>🏀 Basket Bros</h2>
+        </div>
+        <div class="game-info">
+          <p>Basketball action with cooperative multiplayer fun!</p>
+        </div>
+        <div class="game-frame-container" id="gameCard3">
+          <iframe id="gameFrame3" src="https://rawcdn.githack.com/basket-bros/basket-bros.github.io/main/index.html" class="game-frame" allowfullscreen allow="fullscreen"></iframe>
+        </div>
+        <div class="game-buttons">
+          <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard3')" title="Fullscreen">⛶ Fullscreen</button>
+          <button class="play-btn" onclick="reloadGame('gameFrame3')" title="Refresh">🔄 Restart</button>
         </div>
       </div>
     </div>
 
     <footer>
-      <p>Have fun learning! 🌟</p>
+      <p>⭐ Have fun learning! Keep playing to master math! ⭐</p>
     </footer>
   </div>
 
-  <!-- CrazyCattle3D Game Scripts -->
   <script>
     // PIN Entry Logic
     const PIN = '0000';
@@ -344,17 +501,17 @@
       document.getElementById('gamesScreen').classList.remove('show');
       document.getElementById('pinInput').value = '';
       document.getElementById('pinInput').focus();
+      exitFullscreen();
     }
 
     // Fullscreen Logic
-    function toggleFullscreen(containerId, elementId) {
+    function toggleFullscreen(containerId) {
       const container = document.getElementById(containerId);
-      const element = document.getElementById(elementId);
-
+      
       if (!document.fullscreenElement) {
         // Enter fullscreen
         if (container.requestFullscreen) {
-          container.requestFullscreen();
+          container.requestFullscreen().catch(e => console.error('Fullscreen error:', e));
         } else if (container.webkitRequestFullscreen) {
           container.webkitRequestFullscreen();
         } else if (container.mozRequestFullScreen) {
@@ -362,10 +519,18 @@
         } else if (container.msRequestFullscreen) {
           container.msRequestFullscreen();
         }
+        
+        container.classList.add('fullscreen');
+        showExitButton();
       } else {
-        // Exit fullscreen
+        exitFullscreen();
+      }
+    }
+
+    function exitFullscreen() {
+      if (document.fullscreenElement) {
         if (document.exitFullscreen) {
-          document.exitFullscreen();
+          document.exitFullscreen().catch(e => console.error('Exit fullscreen error:', e));
         } else if (document.webkitExitFullscreen) {
           document.webkitExitFullscreen();
         } else if (document.mozCancelFullScreen) {
@@ -374,6 +539,51 @@
           document.msExitFullscreen();
         }
       }
+      
+      document.querySelectorAll('.game-frame-container').forEach(el => {
+        el.classList.remove('fullscreen');
+      });
+      removeExitButton();
+    }
+
+    function showExitButton() {
+      let btn = document.getElementById('exitFullscreenBtn');
+      if (!btn) {
+        btn = document.createElement('button');
+        btn.id = 'exitFullscreenBtn';
+        btn.className = 'exit-fullscreen-btn';
+        btn.textContent = '✕ Exit Fullscreen';
+        btn.onclick = exitFullscreen;
+        document.body.appendChild(btn);
+      }
+    }
+
+    function removeExitButton() {
+      const btn = document.getElementById('exitFullscreenBtn');
+      if (btn) {
+        btn.remove();
+      }
+    }
+
+    // Handle ESC key for fullscreen
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.fullscreenElement) {
+        exitFullscreen();
+      }
+    });
+
+    // Game reload functions
+    function reloadGame(frameId) {
+      const frame = document.getElementById(frameId);
+      frame.src = frame.src;
+    }
+
+    function resetGame(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Reload the game
+      location.reload();
     }
 
     // Allow Enter key to submit PIN
