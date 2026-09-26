@@ -16,6 +16,123 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Kahoot-style PIN Entry Screen */
+    .pin-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      color: white;
+    }
+
+    .pin-screen.hidden {
+      display: none;
+    }
+
+    .kahoot-logo {
+      font-size: 5em;
+      margin-bottom: 30px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .pin-screen h1 {
+      font-size: 4em;
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    }
+
+    .pin-screen p {
+      font-size: 1.8em;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    .pin-input-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .pin-input {
+      font-size: 3em;
+      text-align: center;
+      letter-spacing: 15px;
+      border: 3px solid white;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .pin-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .pin-input:focus {
+      outline: none;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    .pin-submit-btn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.3em;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 20px;
+    }
+
+    .pin-submit-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+    }
+
+    .pin-submit-btn:active {
+      transform: scale(0.95);
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 1.2em;
+      margin-top: 15px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .error-message.show {
+      opacity: 1;
+    }
+
+    /* Game Screen */
+    .games-screen {
+      display: none;
+      width: 100%;
+    }
+
+    .games-screen.show {
+      display: block;
     }
 
     header {
@@ -50,6 +167,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       overflow: hidden;
       transition: transform 0.3s ease;
+      position: relative;
     }
 
     .game-card:hover {
@@ -62,6 +180,9 @@
       padding: 20px;
       font-size: 1.8em;
       text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .game-card p {
@@ -78,6 +199,32 @@
       border: none;
     }
 
+    .fullscreen-btn {
+      background: white;
+      border: none;
+      color: #667eea;
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .fullscreen-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .fullscreen-btn:active {
+      transform: scale(0.95);
+    }
+
+    .game-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
     footer {
       text-align: center;
       color: white;
@@ -85,39 +232,161 @@
       padding: 20px;
       opacity: 0.8;
     }
+
+    .exit-btn {
+      background: rgba(255, 107, 107, 0.8);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: background 0.2s;
+    }
+
+    .exit-btn:hover {
+      background: rgba(255, 107, 107, 1);
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🎮 Math Games for 6th Graders 🎮</h1>
-    <p>Learn math while having fun!</p>
-  </header>
-
-  <div class="container">
-    <!-- Game 1: CrazyCattle3D -->
-    <div class="game-card">
-      <h2>Crazy Cattle 3D</h2>
-      <p>A wild 3D adventure game!</p>
-      <canvas id="canvas" class="game-frame" style="display: block; width: 100%; height: 600px;">
-        Your browser does not support the canvas tag.
-      </canvas>
-      <noscript>Your browser does not support JavaScript.</noscript>
-    </div>
-
-    <!-- Game 2: Web Dashers (Division) -->
-    <div class="game-card">
-      <h2>🔢 Fun Division 🔢</h2>
-      <p>Master division while playing an exciting dash game!</p>
-      <iframe src="https://rawcdn.githack.com/web-dashers/web-dashers.github.io/refs/heads/main/index.html" class="game-frame" allowfullscreen></iframe>
+  <!-- PIN Entry Screen -->
+  <div class="pin-screen" id="pinScreen">
+    <div class="kahoot-logo">🎮</div>
+    <h1>Math Games</h1>
+    <p>Enter PIN to continue</p>
+    <div class="pin-input-container">
+      <input type="password" id="pinInput" class="pin-input" placeholder="0000" maxlength="4" inputmode="numeric">
+      <button class="pin-submit-btn" onclick="checkPin()">Play</button>
+      <div class="error-message" id="errorMessage">Wrong PIN. Try again!</div>
     </div>
   </div>
 
-  <footer>
-    <p>Have fun learning! 🌟</p>
-  </footer>
+  <!-- Games Screen -->
+  <div class="games-screen" id="gamesScreen">
+    <button class="exit-btn" onclick="exitGames()">← Exit</button>
+    
+    <header>
+      <h1>🎮 Math Games for 6th Graders 🎮</h1>
+      <p>Learn math while having fun!</p>
+    </header>
+
+    <div class="container">
+      <!-- Game 1: CrazyCattle3D -->
+      <div class="game-card">
+        <h2>
+          <span>Crazy Cattle 3D</span>
+          <div class="game-controls">
+            <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard1', 'canvas')" title="Fullscreen">⛶</button>
+          </div>
+        </h2>
+        <p>A wild 3D adventure game!</p>
+        <div id="gameCard1">
+          <canvas id="canvas" class="game-frame" style="display: block; width: 100%; height: 600px;">
+            Your browser does not support the canvas tag.
+          </canvas>
+          <noscript>Your browser does not support JavaScript.</noscript>
+        </div>
+      </div>
+
+      <!-- Game 2: Web Dashers (Division) -->
+      <div class="game-card">
+        <h2>
+          <span>🔢 Fun Division 🔢</span>
+          <div class="game-controls">
+            <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard2', 'gameFrame2')" title="Fullscreen">⛶</button>
+          </div>
+        </h2>
+        <p>Master division while playing an exciting dash game!</p>
+        <div id="gameCard2">
+          <iframe id="gameFrame2" src="https://rawcdn.githack.com/web-dashers/web-dashers.github.io/refs/heads/main/index.html" class="game-frame" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Have fun learning! 🌟</p>
+    </footer>
+  </div>
 
   <!-- CrazyCattle3D Game Scripts -->
   <script>
+    // PIN Entry Logic
+    const PIN = '0000';
+
+    function checkPin() {
+      const input = document.getElementById('pinInput').value;
+      if (input === PIN) {
+        showGames();
+      } else {
+        showError();
+      }
+    }
+
+    function showError() {
+      const errorMsg = document.getElementById('errorMessage');
+      errorMsg.classList.add('show');
+      document.getElementById('pinInput').value = '';
+      document.getElementById('pinInput').focus();
+      setTimeout(() => {
+        errorMsg.classList.remove('show');
+      }, 2000);
+    }
+
+    function showGames() {
+      document.getElementById('pinScreen').classList.add('hidden');
+      document.getElementById('gamesScreen').classList.add('show');
+    }
+
+    function exitGames() {
+      document.getElementById('pinScreen').classList.remove('hidden');
+      document.getElementById('gamesScreen').classList.remove('show');
+      document.getElementById('pinInput').value = '';
+      document.getElementById('pinInput').focus();
+    }
+
+    // Fullscreen Logic
+    function toggleFullscreen(containerId, elementId) {
+      const container = document.getElementById(containerId);
+      const element = document.getElementById(elementId);
+
+      if (!document.fullscreenElement) {
+        // Enter fullscreen
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+        } else if (container.mozRequestFullScreen) {
+          container.mozRequestFullScreen();
+        } else if (container.msRequestFullscreen) {
+          container.msRequestFullscreen();
+        }
+      } else {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+
+    // Allow Enter key to submit PIN
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('pinInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkPin();
+        }
+      });
+      document.getElementById('pinInput').focus();
+    });
+
+    // CrazyCattle3D Game Scripts
     const CDN_BASE = 'https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/';
     
     async function mergeSplitFiles(baseName, numParts) {
