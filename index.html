@@ -409,26 +409,7 @@
     </header>
 
     <div class="container">
-      <!-- Game 1: Crazy Cattle 3D -->
-      <div class="game-card">
-        <div class="game-card-header">
-          <h2>🐄 Crazy Cattle 3D</h2>
-        </div>
-        <div class="game-info">
-          <p>Wild 3D adventure - dodge, jump, and conquer!</p>
-        </div>
-        <div class="game-frame-container" id="gameCard1">
-          <canvas id="canvas" class="game-frame" style="display: block; width: 100%; height: 100%; background: #000;">
-            Your browser does not support canvas.
-          </canvas>
-        </div>
-        <div class="game-buttons">
-          <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard1')" title="Fullscreen">⛶ Fullscreen</button>
-          <button class="play-btn" onclick="resetGame('canvas')" title="Reset">🔄 Restart</button>
-        </div>
-      </div>
-
-      <!-- Game 2: Fun Division -->
+      <!-- Game 1: Fun Division -->
       <div class="game-card">
         <div class="game-card-header">
           <h2>🔢 Division Dash</h2>
@@ -436,16 +417,16 @@
         <div class="game-info">
           <p>Master division while racing through challenges!</p>
         </div>
-        <div class="game-frame-container" id="gameCard2">
-          <iframe id="gameFrame2" src="https://rawcdn.githack.com/web-dashers/web-dashers.github.io/refs/heads/main/index.html" class="game-frame" allowfullscreen allow="fullscreen"></iframe>
+        <div class="game-frame-container" id="gameCard1">
+          <iframe id="gameFrame1" src="https://rawcdn.githack.com/web-dashers/web-dashers.github.io/refs/heads/main/index.html" class="game-frame" allowfullscreen allow="fullscreen"></iframe>
         </div>
         <div class="game-buttons">
-          <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard2')" title="Fullscreen">⛶ Fullscreen</button>
-          <button class="play-btn" onclick="reloadGame('gameFrame2')" title="Refresh">🔄 Restart</button>
+          <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard1')" title="Fullscreen">⛶ Fullscreen</button>
+          <button class="play-btn" onclick="reloadGame('gameFrame1')" title="Refresh">🔄 Restart</button>
         </div>
       </div>
 
-      <!-- Game 3: Basket Bros -->
+      <!-- Game 2: Basket Bros -->
       <div class="game-card">
         <div class="game-card-header">
           <h2>🏀 Basket Bros</h2>
@@ -453,8 +434,25 @@
         <div class="game-info">
           <p>Basketball action with cooperative multiplayer fun!</p>
         </div>
+        <div class="game-frame-container" id="gameCard2">
+          <iframe id="gameFrame2" src="https://rawcdn.githack.com/basket-bros/basket-bros.github.io/main/index.html" class="game-frame" allowfullscreen allow="fullscreen"></iframe>
+        </div>
+        <div class="game-buttons">
+          <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard2')" title="Fullscreen">⛶ Fullscreen</button>
+          <button class="play-btn" onclick="reloadGame('gameFrame2')" title="Refresh">🔄 Restart</button>
+        </div>
+      </div>
+
+      <!-- Game 3: Basket Random -->
+      <div class="game-card">
+        <div class="game-card-header">
+          <h2>🎯 Basket Random</h2>
+        </div>
+        <div class="game-info">
+          <p>Crazy basketball chaos - unpredictable fun!</p>
+        </div>
         <div class="game-frame-container" id="gameCard3">
-          <iframe id="gameFrame3" src="https://rawcdn.githack.com/basket-bros/basket-bros.github.io/main/index.html" class="game-frame" allowfullscreen allow="fullscreen"></iframe>
+          <iframe id="gameFrame3" src="https://rawcdn.githack.com/basket-random/basket-random.github.io/main/index.html" class="game-frame" allowfullscreen allow="fullscreen"></iframe>
         </div>
         <div class="game-buttons">
           <button class="fullscreen-btn" onclick="toggleFullscreen('gameCard3')" title="Fullscreen">⛶ Fullscreen</button>
@@ -578,14 +576,6 @@
       frame.src = frame.src;
     }
 
-    function resetGame(canvasId) {
-      const canvas = document.getElementById(canvasId);
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Reload the game
-      location.reload();
-    }
-
     // Allow Enter key to submit PIN
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('pinInput').addEventListener('keypress', function(e) {
@@ -595,161 +585,6 @@
       });
       document.getElementById('pinInput').focus();
     });
-
-    // CrazyCattle3D Game Scripts
-    const CDN_BASE = 'https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/';
-    
-    async function mergeSplitFiles(baseName, numParts) {
-      try {
-        const parts = [];
-        for (let i = 1; i <= numParts; i++) {
-          parts.push(`${CDN_BASE}${baseName}.part${i}`);
-        }
-
-        console.log(`Merging ${baseName} from ${numParts} parts...`);
-        
-        const responses = await Promise.all(parts.map(part => 
-          fetch(part).catch(err => {
-            console.error(`Failed to fetch ${part}:`, err);
-            throw new Error(`Failed to load ${part}`);
-          })
-        ));
-        
-        for (let i = 0; i < responses.length; i++) {
-          if (!responses[i].ok) {
-            throw new Error(`Failed to load ${parts[i]}: ${responses[i].status} ${responses[i].statusText}`);
-          }
-        }
-
-        const buffers = await Promise.all(responses.map(r => r.arrayBuffer()));
-        const totalSize = buffers.reduce((sum, buf) => sum + buf.byteLength, 0);
-
-        const mergedArray = new Uint8Array(totalSize);
-        let offset = 0;
-        for (const buffer of buffers) {
-          mergedArray.set(new Uint8Array(buffer), offset);
-          offset += buffer.byteLength;
-        }
-
-        console.log(`${baseName} merged successfully: ${totalSize} bytes`);
-        return mergedArray.buffer;
-      } catch (error) {
-        console.error(`Error merging ${baseName}:`, error);
-        throw error;
-      }
-    }
-
-    window.mergedFiles = {
-      pck: null,
-      wasm: null
-    };
-
-    if (!window.originalFetch) {
-      window.originalFetch = window.fetch;
-    }
-
-    window.fetch = function(url, ...args) {
-      const urlStr = typeof url === 'string' ? url : url.toString();
-      
-      if (urlStr.includes('index.pck') && !urlStr.includes('.part')) {
-        console.log('Intercepting index.pck request');
-        return new Promise((resolve) => {
-          const checkData = setInterval(() => {
-            if (window.mergedFiles.pck) {
-              clearInterval(checkData);
-              resolve(new Response(window.mergedFiles.pck, {
-                status: 200,
-                statusText: 'OK',
-                headers: {
-                  'Content-Type': 'application/octet-stream',
-                  'Content-Length': window.mergedFiles.pck.byteLength
-                }
-              }));
-            }
-          }, 50);
-        });
-      }
-      
-      if (urlStr.includes('index.wasm') && !urlStr.includes('.part')) {
-        console.log('Intercepting index.wasm request');
-        return new Promise((resolve) => {
-          const checkData = setInterval(() => {
-            if (window.mergedFiles.wasm) {
-              clearInterval(checkData);
-              resolve(new Response(window.mergedFiles.wasm, {
-                status: 200,
-                statusText: 'OK',
-                headers: {
-                  'Content-Type': 'application/wasm',
-                  'Content-Length': window.mergedFiles.wasm.byteLength
-                }
-              }));
-            }
-          }, 50);
-        });
-      }
-      
-      return window.originalFetch.call(this, url, ...args);
-    };
-
-    (async function() {
-      try {
-        const [pckBuffer, wasmBuffer] = await Promise.all([
-          mergeSplitFiles('index.pck', 3),
-          mergeSplitFiles('index.wasm', 3)
-        ]);
-        
-        window.mergedFiles.pck = pckBuffer;
-        window.mergedFiles.wasm = wasmBuffer;
-        
-        console.log('All files merged and ready!');
-      } catch (error) {
-        console.error('Failed to merge files:', error);
-      }
-    })();
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/index.js"></script>
-  <script> 
-    const GODOT_CONFIG = {
-      "args": [],
-      "canvasResizePolicy": 2,
-      "ensureCrossOriginIsolationHeaders": true,
-      "executable": "index",
-      "experimentalVK": false,
-      "fileSizes": {
-        "index.pck": 42336176,
-        "index.wasm": 43699190
-      },
-      "focusCanvas": true,
-      "gdextensionLibs": []
-    };
-    const GODOT_THREADS_ENABLED = false;
-    const engine = new Engine(GODOT_CONFIG);
-
-    (function() {
-      const canvas = document.getElementById('canvas');
-      
-      let initializing = true;
-
-      function displayFailureNotice(err) {
-        console.error(err);
-      }
-
-      const missing = Engine.getMissingFeatures({
-        threads: GODOT_THREADS_ENABLED,
-      });
-
-      if (missing.length === 0) {
-        engine.startGame({
-          'onProgress': function(current, total) {
-            // Progress tracking
-          },
-        }).then(() => {
-          initializing = false;
-        }, displayFailureNotice);
-      }
-    }());
   </script>
 </body>
 </html>
