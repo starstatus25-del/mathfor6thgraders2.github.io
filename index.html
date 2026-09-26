@@ -1,113 +1,123 @@
 <!DOCTYPE html>
-
-
-<!-- Ultimate Game Stash file--> 
-<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
-
-
-
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-  <title>CrazyCattle3D</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math for 6th Graders</title>
   <style>
-    html,
-    body,
-    #canvas {
+    * {
       margin: 0;
       padding: 0;
-      border: 0;
+      box-sizing: border-box;
     }
 
     body {
-      color: white;
-      background-color: black;
-      overflow: hidden;
-      touch-action: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    #canvas {
-      display: block;
-    }
-
-    #canvas:focus {
-      outline: none;
-    }
-
-    #status,
-    #status-splash, 
-    #status-progress { 
-      position: absolute;
-      left: 0;
-      right: 0;
-    }
-
-    #status,
-    #status-splash {
-      top: 0;
-      bottom: 0;
-    }
-
-    #status {
-      background-color: #000000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      visibility: hidden;
-    }
-
-    #status-splash {
-      max-height: 100%;
-      max-width: 100%;
-      margin: auto;
-    }
-
-    #status-splash.show-image--false {
-      display: none;
-    }
-
-    #status-splash.fullsize--true {
-      height: 100%;
-      width: 100%;
-      object-fit: contain;
-    }
-
-    #status-splash.use-filter--false {
-      image-rendering: pixelated;
-    }
-
-    #status-progress,
-    #status-notice {
-      display: none;
-    }
-
-    #status-progress {
-      bottom: 10%;
-      width: 50%;
-      margin: 0 auto;
-    }
-
-    #status-notice {
-      background-color: #5b3943;
-      border-radius: 0.5rem;
-      border: 1px solid #9b3943;
-      color: #e0e0e0;
-      font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-      line-height: 1.3;
-      margin: 0 2rem;
-      overflow: hidden;
-      padding: 1rem;
+    header {
       text-align: center;
-      z-index: 1;
+      color: white;
+      margin-bottom: 40px;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    header p {
+      font-size: 1.3em;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+    }
+
+    .game-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .game-card h2 {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      font-size: 1.8em;
+      text-align: center;
+    }
+
+    .game-card p {
+      padding: 15px 20px;
+      color: #333;
+      font-size: 1.1em;
+      text-align: center;
+      background: #f8f9fa;
+    }
+
+    .game-frame {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
+    footer {
+      text-align: center;
+      color: white;
+      margin-top: 50px;
+      padding: 20px;
+      opacity: 0.8;
     }
   </style>
-  <link id="-gd-engine-icon" rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/index.icon.png" />
-  <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/index.apple-touch-icon.png" />
+</head>
+<body>
+  <header>
+    <h1>🎮 Math Games for 6th Graders 🎮</h1>
+    <p>Learn math while having fun!</p>
+  </header>
 
+  <div class="container">
+    <!-- Game 1: CrazyCattle3D -->
+    <div class="game-card">
+      <h2>Crazy Cattle 3D</h2>
+      <p>A wild 3D adventure game!</p>
+      <canvas id="canvas" class="game-frame" style="display: block; width: 100%; height: 600px;">
+        Your browser does not support the canvas tag.
+      </canvas>
+      <noscript>Your browser does not support JavaScript.</noscript>
+    </div>
+
+    <!-- Game 2: Web Dashers (Division) -->
+    <div class="game-card">
+      <h2>🔢 Fun Division 🔢</h2>
+      <p>Master division while playing an exciting dash game!</p>
+      <iframe src="https://rawcdn.githack.com/web-dashers/web-dashers.github.io/refs/heads/main/index.html" class="game-frame" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <footer>
+    <p>Have fun learning! 🌟</p>
+  </footer>
+
+  <!-- CrazyCattle3D Game Scripts -->
   <script>
-
     const CDN_BASE = 'https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/';
     
     async function mergeSplitFiles(baseName, numParts) {
@@ -133,9 +143,7 @@
         }
 
         const buffers = await Promise.all(responses.map(r => r.arrayBuffer()));
-        
         const totalSize = buffers.reduce((sum, buf) => sum + buf.byteLength, 0);
-        
 
         const mergedArray = new Uint8Array(totalSize);
         let offset = 0;
@@ -218,26 +226,9 @@
         console.log('All files merged and ready!');
       } catch (error) {
         console.error('Failed to merge files:', error);
-        alert('Failed to load game files. Please check that all .part files are uploaded to your CDN.\n\nError: ' + error.message);
       }
     })();
   </script>
-</head>
-
-<body>
-  <canvas id="canvas">
-    Your browser does not support the canvas tag.
-  </canvas>
-
-  <noscript>
-    Your browser does not support JavaScript.
-  </noscript>
-
-  <div id="status">
-    <img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/index.png" alt="">
-    <progress id="status-progress"></progress>
-    <div id="status-notice"></div>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/gh/bubbls/cc3d-merge/index.js"></script>
   <script> 
@@ -258,73 +249,25 @@
     const engine = new Engine(GODOT_CONFIG);
 
     (function() {
-      const statusOverlay = document.getElementById('status');
-      const statusProgress = document.getElementById('status-progress');
-      const statusNotice = document.getElementById('status-notice');
-
+      const canvas = document.getElementById('canvas');
+      
       let initializing = true;
-      let statusMode = '';
-
-      function setStatusMode(mode) {
-        if (statusMode === mode || !initializing) {
-          return;
-        }
-        if (mode === 'hidden') {
-          statusOverlay.remove();
-          initializing = false;
-          return;
-        }
-        statusOverlay.style.visibility = 'visible';
-        statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
-        statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
-        statusMode = mode;
-      }
-
-      function setStatusNotice(text) {
-        while (statusNotice.lastChild) {
-          statusNotice.removeChild(statusNotice.lastChild);
-        }
-        const lines = text.split('\n');
-        lines.forEach((line) => {
-          statusNotice.appendChild(document.createTextNode(line));
-          statusNotice.appendChild(document.createElement('br'));
-        });
-      }
 
       function displayFailureNotice(err) {
         console.error(err);
-        if (err instanceof Error) {
-          setStatusNotice(err.message);
-        } else if (typeof err === 'string') {
-          setStatusNotice(err);
-        } else {
-          setStatusNotice('An unknown error occurred.');
-        }
-        setStatusMode('notice');
-        initializing = false;
       }
 
       const missing = Engine.getMissingFeatures({
         threads: GODOT_THREADS_ENABLED,
       });
 
-      if (missing.length !== 0) {
-        const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-        displayFailureNotice(missingMsg + missing.join('\n'));
-      } else {
-        setStatusMode('progress');
+      if (missing.length === 0) {
         engine.startGame({
           'onProgress': function(current, total) {
-            if (current > 0 && total > 0) {
-              statusProgress.value = current;
-              statusProgress.max = total;
-            } else {
-              statusProgress.removeAttribute('value');
-              statusProgress.removeAttribute('max');
-            }
+            // Progress tracking
           },
         }).then(() => {
-          setStatusMode('hidden');
+          initializing = false;
         }, displayFailureNotice);
       }
     }());
